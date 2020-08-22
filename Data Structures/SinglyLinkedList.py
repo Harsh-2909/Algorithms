@@ -60,7 +60,7 @@ class SinglyLinkedList(Node):
     
     def deleteFromBeginning(self) -> int or None:
         if self.head == None:
-            warnings.warn('The LinkedList is already Empty', RuntimeWarning)
+            warnings.warn('The SinglyLinkedList is already Empty', RuntimeWarning)
             return None
         
         current = self.head
@@ -71,7 +71,7 @@ class SinglyLinkedList(Node):
     
     def deleteFromEnd(self) -> int or None:
         if self.head == None:
-            warnings.warn('The LinkedList is already Empty', RuntimeWarning)
+            warnings.warn('The SinglyLinkedList is already Empty', RuntimeWarning)
             return None
         
         current = self.head
