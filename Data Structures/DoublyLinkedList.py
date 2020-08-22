@@ -1,11 +1,12 @@
-import warnings
-
 class Node():
 
     def __init__(self, data):
         self.data = data
         self.next = None
         self.prev = None
+    
+    def __str__(self):
+        return str(self.data)
 
 class DoublyLinkedList(Node):
     seperator = ' '
@@ -18,12 +19,12 @@ class DoublyLinkedList(Node):
             
     
     def __str__(self):
-        s = ''
+        nodes = []
         current = self.head
         while current:
-            s = f'{s}{current.data}{self.seperator}'
+            nodes.append(current)
             current = current.next
-        return s[:-len(self.seperator)]
+        return self.seperator.join(str(node) for node in nodes)
     
     def __len__(self):
         count = 0
@@ -61,10 +62,9 @@ class DoublyLinkedList(Node):
             newnode.prev = current
             self.tail = newnode
     
-    def deleteFromBeginning(self) -> int or None:
+    def deleteFromBeginning(self) -> str:
         if self.head == None:
-            warnings.warn('The DoublyLinkedList is already Empty', RuntimeWarning)
-            return None
+            return "List is empty"
         
         current = self.head
         to_delete = current
@@ -77,10 +77,9 @@ class DoublyLinkedList(Node):
         del to_delete
         return deleted_data
     
-    def deleteFromEnd(self) -> int or None:
+    def deleteFromEnd(self) -> str:
         if self.head == None:
-            warnings.warn('The DoublyLinkedList is already Empty', RuntimeWarning)
-            return None
+            return "List is empty"
         
         current = self.head
         if current.next == None:
@@ -105,14 +104,15 @@ class DoublyLinkedList(Node):
     
     def getSeperator(self) -> str:
         return self.seperator
+    
+    @property
+    def isEmpty(self):
+        return self.head is None
 
 if __name__ == "__main__":
-    a = DoublyLinkedList(5)
-    a.insertAtBeginning(4)
+    a = DoublyLinkedList()
+    print(a.isEmpty)
+    a.insertAtBeginning(5)
     a.insertAtEnd(6)
-    # print(a.deleteFromEnd())
-    print(a)
-    print(a[0], a[1], a[2])
-    a.setSeperator('<->')
-    print(a)
-    # print(len(a))
+    
+    print(a[0], a[len(a)-1])

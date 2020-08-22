@@ -1,10 +1,11 @@
-import warnings
-
 class Node():
 
     def __init__(self, data):
         self.data = data
         self.next = None
+    
+    def __str__(self):
+        return str(self.data)
 
 class SinglyLinkedList(Node):
     seperator = ' '
@@ -16,12 +17,12 @@ class SinglyLinkedList(Node):
             self.head = Node(data)
     
     def __str__(self):
-        s = ''
+        nodes = []
         current = self.head
         while current:
-            s = f'{s}{current.data}{self.seperator}'
+            nodes.append(current)
             current = current.next
-        return s[:-len(self.seperator)]
+        return self.seperator.join(str(node) for node in nodes)
     
     def __len__(self):
         count = 0
@@ -58,10 +59,9 @@ class SinglyLinkedList(Node):
                 current = current.next
             current.next = newnode
     
-    def deleteFromBeginning(self) -> int or None:
+    def deleteFromBeginning(self) -> str:
         if self.head == None:
-            warnings.warn('The SinglyLinkedList is already Empty', RuntimeWarning)
-            return None
+            return "LinkedList is empty"
         
         current = self.head
         self.head = self.head.next
@@ -69,10 +69,9 @@ class SinglyLinkedList(Node):
         del current
         return deleted_data
     
-    def deleteFromEnd(self) -> int or None:
+    def deleteFromEnd(self) -> str:
         if self.head == None:
-            warnings.warn('The SinglyLinkedList is already Empty', RuntimeWarning)
-            return None
+            return "LinkedList is empty"
         
         current = self.head
         if current.next == None:
@@ -98,14 +97,12 @@ class SinglyLinkedList(Node):
     
     def getSeperator(self) -> str:
         return self.seperator
+    
+    @property
+    def isEmpty(self):
+        return self.head is None
 
 if __name__ == "__main__":
     a = SinglyLinkedList(5)
-    a.insertAtBeginning(4)
-    a.insertAtEnd(6)
-    # print(a.deleteFromEnd())
-    print(a)
-    print(a[0], a[1], a[2])
-    a.setSeperator('->')
-    # print(a)
-    # print(len(a))
+    print(len(a))
+    print(a.isEmpty)
